@@ -25,8 +25,7 @@ CREATE TABLE IF NOT EXISTS donation_records (
     recipient VARCHAR(200) NOT NULL,
     category  VARCHAR(50)  NOT NULL,
     amount    BIGINT       NOT NULL,
-    status    VARCHAR(20)  NOT NULL,
-    UNIQUE (date, recipient, amount)
+    status    VARCHAR(20)  NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS volunteer_applications (
