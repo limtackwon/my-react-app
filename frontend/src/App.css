@@ -1,0 +1,76 @@
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'Noto Sans KR', sans-serif;
+  background: #fafafa;
+  color: #333;
+}
+
+/* ── 히어로 섹션 ─────────────────────────────── */
+.hero-section {
+  position: relative;
+  min-height: 92vh;
+  display: flex;
+  align-items: center;
+  background: linear-gradient(135deg, #1b5e20 0%, #2e7d32 40%, #388e3c 100%);
+  overflow: hidden;
+}
+
+.hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.35);
+}
+
+.hero-content {
+  position: relative;
+  z-index: 1;
+}
+
+/* ── 통계 카드 ────────────────────────────────── */
+.stat-card {
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.stat-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 12px 32px rgba(76, 175, 80, 0.25) !important;
+}
+
+/* ── 활동 카드 가로 스크롤 ──────────────────────── */
+.activity-scroll {
+  display: flex;
+  gap: 20px;
+  overflow-x: auto;
+  padding-bottom: 12px;
+  scrollbar-width: thin;
+  scrollbar-color: #4CAF50 #e8f5e9;
+}
+
+.activity-scroll::-webkit-scrollbar       { height: 6px; }
+.activity-scroll::-webkit-scrollbar-track { background: #e8f5e9; border-radius: 3px; }
+.activity-scroll::-webkit-scrollbar-thumb { background: #4CAF50; border-radius: 3px; }
+
+.activity-card {
+  min-width: 300px;
+  flex-shrink: 0;
+  transition: transform 0.2s ease;
+}
+
+.activity-card:hover { transform: translateY(-4px); }
+
+/* ── 봉사 신청 폼 ─────────────────────────────── */
+.volunteer-section {
+  background: linear-gradient(135deg, #1b5e20, #2e7d32);
+}
+
+/* ── 섹션 공통 ────────────────────────────────── */
+.section-divider {
+  width: 60px;
+  height: 4px;
+  background: #4CAF50;
+  border-radius: 2px;
+  margin: 12px 0 24px;
+}

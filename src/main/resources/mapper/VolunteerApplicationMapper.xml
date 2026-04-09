@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.myreactapp.mapper.VolunteerApplicationMapper">
+
+    <!-- 봉사 신청 등록 -->
+    <insert id="insert" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO volunteer_applications
+            (name, phone, activity, message, applied_at)
+        VALUES
+            (#{name}, #{phone}, #{activity}, #{message}, #{appliedAt})
+    </insert>
+
+</mapper>

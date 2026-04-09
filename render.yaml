@@ -1,0 +1,44 @@
+# Render Blueprint – Monolith (Spring Boot + React)
+# 참고: https://render.com/docs/blueprint-spec
+
+databases:
+  - name: my-react-app-db
+    databaseName: csrdb
+    user: csruser
+    plan: free          # 무료 플랜 (90일 후 만료 – 운영 시 starter로 업그레이드)
+    region: singapore
+
+services:
+  - type: web
+    name: my-react-app
+    env: docker          # Dockerfile 사용
+    region: singapore
+    plan: free
+    healthCheckPath: /api/v1/stats
+
+    envVars:
+      # PostgreSQL 연결 정보 – 위 databases 블록에서 자동 주입
+      - key: DB_HOST
+        fromDatabase:
+          name: my-react-app-db
+          property: host
+      - key: DB_PORT
+        fromDatabase:
+          name: my-react-app-db
+          property: port
+      - key: DB_NAME
+        fromDatabase:
+          name: my-react-app-db
+          property: database
+      - key: DB_USER
+        fromDatabase:
+          name: my-react-app-db
+          property: user
+      - key: DB_PASSWORD
+        fromDatabase:
+          name: my-react-app-db
+          property: password
+
+      # JVM 메모리 – Render 무료 플랜 512 MB 제한에 맞춤
+      - key: JAVA_OPTS
+        value: "-Xms128m -Xmx384m"

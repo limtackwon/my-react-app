@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.myreactapp.mapper.ActivityMapper">
+
+    <resultMap id="activityMap" type="com.example.myreactapp.dto.ActivityDto">
+        <id     property="id"          column="id"/>
+        <result property="title"       column="title"/>
+        <result property="description" column="description"/>
+        <result property="imageUrl"    column="image_url"/>
+        <result property="metadata"    column="metadata"/>
+    </resultMap>
+
+    <!-- 전체 조회 (최신순) -->
+    <select id="findAll" resultMap="activityMap">
+        SELECT id,
+               title,
+               description,
+               image_url,
+               metadata::text AS metadata
+        FROM activities
+        ORDER BY id DESC
+    </select>
+
+    <!-- 최근 N건 조회 -->
+    <select id="findRecentN" resultMap="activityMap">
+        SELECT id,
+               title,
+               description,
+               image_url,
+               metadata::text AS metadata
+        FROM activities
+        ORDER BY id DESC
+        LIMIT #{limit}
+    </select>
+
+    <!-- 단건 조회 -->
+    <select id="findById" resultMap="activityMap">
+        SELECT id,
+               title,
+               description,
+               image_url,
+               metadata::text AS metadata
+        FROM activities
+        WHERE id = #{id}
+    </select>
+
+    <!-- 건수 조회 -->
+    <select id="count" resultType="long">
+        SELECT COUNT(*) FROM activities
+    </select>
+
+    <!-- 등록 (JSONB 캐스팅) -->
+    <insert id="insert" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO activities (title, description, image_url, metadata)
+        VALUES (#{title}, #{description}, #{imageUrl},
+                #{metadata}::jsonb)
+    </insert>
+
+</mapper>

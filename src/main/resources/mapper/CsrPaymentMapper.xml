@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.myreactapp.mapper.CsrPaymentMapper">
+
+    <resultMap id="paymentMap" type="com.example.myreactapp.dto.CsrPaymentDto">
+        <id     property="id"       column="id"/>
+        <result property="title"    column="title"/>
+        <result property="amount"   column="amount"/>
+        <result property="category" column="category"/>
+        <result property="date"     column="date"/>
+    </resultMap>
+
+    <!-- 전체 조회 (최신순) -->
+    <select id="findAll" resultMap="paymentMap">
+        SELECT id, title, amount, category, date
+        FROM csr_payments
+        ORDER BY date DESC
+    </select>
+
+    <!-- 기부금 합계 -->
+    <select id="sumTotalAmount" resultType="java.math.BigDecimal">
+        SELECT COALESCE(SUM(amount), 0) FROM csr_payments
+    </select>
+
+    <!-- 건수 조회 -->
+    <select id="count" resultType="long">
+        SELECT COUNT(*) FROM csr_payments
+    </select>
+
+    <!-- 등록 -->
+    <insert id="insert" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO csr_payments (title, amount, category, date)
+        VALUES (#{title}, #{amount}, #{category}, #{date})
+    </insert>
+
+</mapper>
