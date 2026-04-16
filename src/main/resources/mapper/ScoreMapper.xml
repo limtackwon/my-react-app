@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.myreactapp.mapper.ScoreMapper">
+
+    <resultMap id="scoreMap" type="com.example.myreactapp.dto.ScoreDto">
+        <id     property="id"        column="id"/>
+        <result property="username"  column="username"/>
+        <result property="score"     column="score"/>
+        <result property="ipAddress" column="ip_address"/>
+        <result property="playedAt"  column="played_at"/>
+    </resultMap>
+
+    <select id="findTopScores" resultMap="scoreMap">
+        SELECT id, username, score, ip_address, played_at
+        FROM   tetris_scores
+        ORDER  BY score DESC
+        LIMIT  #{limit}
+    </select>
+
+    <select id="findByUsername" resultMap="scoreMap">
+        SELECT id, username, score, ip_address, played_at
+        FROM   tetris_scores
+        WHERE  LOWER(username) = LOWER(#{username})
+        LIMIT  1
+    </select>
+
+    <select id="findByIpAddress" resultMap="scoreMap">
+        SELECT id, username, score, ip_address, played_at
+        FROM   tetris_scores
+        WHERE  ip_address = #{ipAddress}
+        LIMIT  1
+    </select>
+
+    <insert id="insert" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO tetris_scores (username, score, ip_address, played_at)
+        VALUES (#{username}, #{score}, #{ipAddress}, now())
+    </insert>
+
+    <update id="update">
+        UPDATE tetris_scores
+        SET    score     = #{score},
+               played_at = now()
+        WHERE  id = #{id}
+    </update>
+
+</mapper>

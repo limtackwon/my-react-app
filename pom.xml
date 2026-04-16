@@ -31,6 +31,13 @@
       <artifactId>spring-boot-starter-web</artifactId>
     </dependency>
 
+    <!-- .env 파일 로드 (로컬 개발용) -->
+    <dependency>
+      <groupId>io.github.cdimascio</groupId>
+      <artifactId>dotenv-java</artifactId>
+      <version>3.0.0</version>
+    </dependency>
+
     <!-- MyBatis -->
     <dependency>
       <groupId>org.mybatis.spring.boot</groupId>

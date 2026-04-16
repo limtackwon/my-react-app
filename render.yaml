@@ -14,7 +14,7 @@ services:
     env: docker          # Dockerfile 사용
     region: singapore
     plan: free
-    healthCheckPath: /api/v1/stats
+    healthCheckPath: /api/health
 
     envVars:
       # PostgreSQL 연결 정보 – 위 databases 블록에서 자동 주입
